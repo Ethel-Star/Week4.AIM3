@@ -99,8 +99,8 @@ def analyze_sales_on_key_dates(train):
         '04-20': 'Easter'
     }
 
-    # Filter holiday sales
-    holiday_sales = train[train['DayMonth'].isin(key_dates)]
+    # Filter holiday sales and create an explicit copy
+    holiday_sales = train[train['DayMonth'].isin(key_dates)].copy()
 
     # Add holiday name as a new column
     holiday_sales['Holiday'] = holiday_sales['DayMonth'].map(holiday_map)
@@ -120,14 +120,12 @@ def analyze_sales_on_key_dates(train):
     # Add value labels on top of each bar
     for bar in bars:
         height = bar.get_height()
-        # Adjust value position slightly higher if needed
         plt.text(bar.get_x() + bar.get_width() / 2, height + 2, f'{height:.2f}', 
                  ha='center', va='bottom', fontsize=12, color='black')
 
     # Annotate holidays at the bottom of each bar
     for i, bar in enumerate(bars):
         holiday_name = holiday_map[key_date_sales['DayMonth'].iloc[i]]
-        # Move the holiday label to the bottom of the bars
         plt.text(bar.get_x() + bar.get_width() / 2, -5, holiday_name, 
                  ha='center', va='top', fontsize=12, color='blue', fontweight='bold')
 
