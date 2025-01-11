@@ -25,8 +25,7 @@ document.getElementById('predictBtn').addEventListener('click', async function (
 
         if (response.ok) {
             const result = await response.json();
-            document.getElementById('lstmResult').textContent = result.LSTM_Prediction;
-            document.getElementById('rfResult').textContent = result.Random_Forest_Prediction;
+            document.getElementById('rfResult').textContent = result.prediction;
         } else {
             const error = await response.json();
             alert('Error: ' + error.error);
